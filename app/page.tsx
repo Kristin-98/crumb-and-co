@@ -1,3 +1,5 @@
+import Hero from "@/components/ui/layout/hero";
+import { Navbar } from "@/components/ui/layout/navbar";
 import { supabase } from "@/lib/dbClient";
 
 export default async function Home() {
@@ -9,7 +11,9 @@ export default async function Home() {
   }
 
   return (
-    <main style={{ padding: 20 }}>
+    <main className=" bg-slate-500">
+      <Navbar />
+      <Hero />
       <h1>Produkter</h1>
       <ul>
         {products.map((product) => (
