@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/layout/footer";
 import Hero from "@/components/ui/layout/hero";
 import { Navbar } from "@/components/ui/layout/navbar";
 import { supabase } from "@/lib/dbClient";
@@ -11,7 +12,7 @@ export default async function Home() {
   }
 
   return (
-    <main className=" bg-slate-500">
+    <main className=" bg-slate-500 pt-14">
       <Navbar />
       <Hero />
       <h1>Produkter</h1>
@@ -22,6 +23,7 @@ export default async function Home() {
           </li>
         ))}
       </ul>
+      <Footer />
     </main>
   );
 }
