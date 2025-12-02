@@ -1,4 +1,5 @@
 "use client";
+import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -20,7 +21,11 @@ export function Navbar() {
   return (
     <>
       <header className="bg-slate-900 justify-between items-center flex p-4 text-white fixed top-0 left-0 right-0 z-10">
-        {!isOpen && <button onClick={toggleNav} className="md:hidden">🍔</button>}
+        {!isOpen && (
+          <button onClick={toggleNav} className="md:hidden">
+            🍔
+          </button>
+        )}
 
         <Link href="/">Crumb & Co</Link>
 
@@ -30,7 +35,9 @@ export function Navbar() {
           <Link href="/about">About</Link>
         </nav>
 
-        <Link href="/cart">🍪</Link>
+        <Link href="/cart">
+          <ShoppingCart />
+        </Link>
       </header>
 
       {isOpen && (
