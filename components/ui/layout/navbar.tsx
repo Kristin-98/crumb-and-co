@@ -2,20 +2,17 @@
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import CartSidebar from "./cart-sidebar";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const toggleNav = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleCart = () => setIsCartOpen((prev) => !prev);
+  const toggleNav = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
   return (
@@ -32,13 +29,14 @@ export function Navbar() {
         <nav className="hidden md:flex gap-6">
           <Link href="/">Home</Link>
           <Link href="/products">Products</Link>
-          <Link href="/about">About</Link>
+          <Link href="/about">My Orders</Link>
         </nav>
 
-        <Link href="/cart">
+        <button onClick={toggleCart}>
           <ShoppingCart />
-        </Link>
+        </button>
       </header>
+      <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
 
       {isOpen && (
         <div
@@ -63,7 +61,7 @@ export function Navbar() {
           Products
         </Link>
         <Link onClick={toggleNav} href="/about">
-          About
+          My Orders
         </Link>
       </span>
     </>
