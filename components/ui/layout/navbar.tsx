@@ -1,21 +1,21 @@
 "use client";
+import { useCart } from "@/context/cart-context";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import CartSidebar from "./cart-sidebar";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { cart } = useCart();
+  const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
-  const toggleNav = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleCart = () => setIsCartOpen((prev) => !prev);
+  const toggleNav = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
   return (
@@ -32,13 +32,22 @@ export function Navbar() {
         <nav className="hidden md:flex gap-6">
           <Link href="/">Home</Link>
           <Link href="/products">Products</Link>
-          <Link href="/about">About</Link>
+          <Link href="/about">My Orders</Link>
         </nav>
 
-        <Link href="/cart">
+        <button onClick={toggleCart}>
           <ShoppingCart />
-        </Link>
+          {totalItems > 0 && (
+            <span
+              className="absolute top-2 right-2 bg-slate-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+              aria-label={`${totalItems} items in cart`}
+            >
+              {totalItems}
+            </span>
+          )}
+        </button>
       </header>
+      <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
 
       {isOpen && (
         <div
@@ -63,7 +72,7 @@ export function Navbar() {
           Products
         </Link>
         <Link onClick={toggleNav} href="/about">
-          About
+          My Orders
         </Link>
       </span>
     </>

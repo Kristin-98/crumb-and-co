@@ -1,3 +1,4 @@
+import BuyButton from "@/components/ui/layout/buy-button";
 import Footer from "@/components/ui/layout/footer";
 import { Navbar } from "@/components/ui/layout/navbar";
 import { supabase } from "@/lib/dbClient";
@@ -44,7 +45,13 @@ export default async function ProductPage(props: {
         <h2 className="text-3xl font-bold mt-4">{product.name}</h2>
         <p className="text-lg mt-2">{product.description}</p>
         <p className="text-xl font-semibold mt-4">{product.price} kr</p>
-        <button>+</button>
+        <BuyButton
+          product={{
+            id: product.id.toString(),
+            name: product.name,
+            price: product.price,
+          }}
+        />
       </div>
       <Footer />
     </>
