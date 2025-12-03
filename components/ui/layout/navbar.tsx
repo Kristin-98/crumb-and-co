@@ -1,4 +1,5 @@
 "use client";
+import { useCart } from "@/context/cart-context";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -7,6 +8,8 @@ import CartSidebar from "./cart-sidebar";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const { cart } = useCart();
+  const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
   const toggleCart = () => setIsCartOpen((prev) => !prev);
   const toggleNav = () => setIsOpen((prev) => !prev);
@@ -34,6 +37,14 @@ export function Navbar() {
 
         <button onClick={toggleCart}>
           <ShoppingCart />
+          {totalItems > 0 && (
+            <span
+              className="absolute top-2 right-2 bg-slate-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+              aria-label={`${totalItems} items in cart`}
+            >
+              {totalItems}
+            </span>
+          )}
         </button>
       </header>
       <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
