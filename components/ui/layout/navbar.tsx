@@ -1,6 +1,7 @@
 "use client";
 import { useCart } from "@/context/cart-context";
 import { ShoppingCart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import CartSidebar from "./cart-sidebar";
@@ -20,14 +21,22 @@ export function Navbar() {
 
   return (
     <>
-      <header className="bg-slate-900 justify-between items-center flex p-4 text-white fixed top-0 left-0 right-0 z-10">
+      <header className="justify-between items-center flex p-3 text-foreground bg-background sticky top-0 left-0 right-0 mx-3 md:mx-8 z-10">
         {!isOpen && (
           <button onClick={toggleNav} className="md:hidden">
             🍔
           </button>
         )}
 
-        <Link href="/">Crumb & Co</Link>
+        <Link href="/">
+          <Image
+            className="text-white"
+            src="/logo.svg"
+            alt="crumb & co"
+            width={100}
+            height={10}
+          />
+        </Link>
 
         <nav className="hidden md:flex gap-6">
           <Link href="/">Home</Link>
@@ -39,7 +48,7 @@ export function Navbar() {
           <ShoppingCart />
           {totalItems > 0 && (
             <span
-              className="absolute top-2 right-2 bg-slate-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+              className="absolute top-7 right-1 bg-slate-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
               aria-label={`${totalItems} items in cart`}
             >
               {totalItems}

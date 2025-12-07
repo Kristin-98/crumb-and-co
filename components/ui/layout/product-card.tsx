@@ -13,7 +13,7 @@ export default async function ProductCard() {
     <div>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products?.map((product) => (
-          <li key={product.id} className="border-2 p-4 m-4">
+          <li key={product.id} className="border-2 p-4 mt-4">
             <Link href={`/products/${product.id}`}>
               <Image
                 src={product.image_url || "/heroImg.png"}

@@ -1,5 +1,6 @@
 import { useCart } from "@/context/cart-context";
 import { ChevronRight, Trash2, Wallet } from "lucide-react";
+import Link from "next/link";
 import { Button } from "../button";
 
 interface ICartSideBar {
@@ -55,10 +56,12 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
           <p>{totalPrice.toFixed(2)} kr</p>
         </div>
         <div className="flex justify-center">
-          <Button className=" group w-2/3 rounded-3xl m-4 text-lg bg-slate-600 hover:bg-slate-700">
-            Checkout
-            <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />
-          </Button>
+          <Link href="/order-summary" className="w-2/3 group m-4">
+            <Button className="w-full rounded-3xl text-lg bg-slate-600 hover:bg-slate-700">
+              Checkout
+              <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />
+            </Button>
+          </Link>
         </div>
       </aside>
     </div>

@@ -1,15 +1,11 @@
-import Footer from "@/components/ui/layout/footer";
 import Hero from "@/components/ui/layout/hero";
-import { Navbar } from "@/components/ui/layout/navbar";
 import ProductCard from "@/components/ui/layout/product-card";
 
 export default function Home() {
   return (
-    <main className="bg-background pt-14">
-      <Navbar />
+    <main className="bg-background md:mx-8 mx-4">
       <Hero />
       <ProductCard />
-      <Footer />
     </main>
   );
 }
