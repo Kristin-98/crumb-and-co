@@ -3,7 +3,7 @@ import ProductCard from "@/components/ui/layout/product-card";
 
 export default function Home() {
   return (
-    <main className="bg-background pt-14">
+    <main className="bg-background md:mx-8 mx-4">
       <Hero />
       <ProductCard />
     </main>
