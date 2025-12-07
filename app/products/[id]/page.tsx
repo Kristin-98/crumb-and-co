@@ -1,6 +1,4 @@
 import BuyButton from "@/components/ui/layout/buy-button";
-import Footer from "@/components/ui/layout/footer";
-import { Navbar } from "@/components/ui/layout/navbar";
 import { supabase } from "@/lib/dbClient";
 import Image from "next/image";
 
@@ -32,7 +30,6 @@ export default async function ProductPage(props: {
 
   return (
     <>
-      <Navbar />
       <div className="p-8 max-w-2xl mx-auto pt-20">
         <Image
           src={product.image_url || "/heroImg.png"}
@@ -53,7 +50,6 @@ export default async function ProductPage(props: {
           }}
         />
       </div>
-      <Footer />
     </>
   );
 }
