@@ -1,6 +1,6 @@
 "use client";
 import { useCart } from "@/context/cart-context";
-import { ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ export function Navbar() {
       <header className="justify-between items-center flex p-3 text-foreground bg-background sticky top-0 left-0 right-0 mx-3 md:mx-8 z-10">
         {!isOpen && (
           <button onClick={toggleNav} className="md:hidden">
-            🍔
+            <Menu />
           </button>
         )}
 
@@ -48,7 +48,7 @@ export function Navbar() {
           <ShoppingCart />
           {totalItems > 0 && (
             <span
-              className="absolute top-7 right-1 bg-slate-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+              className="absolute top-7 right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
               aria-label={`${totalItems} items in cart`}
             >
               {totalItems}
@@ -66,12 +66,12 @@ export function Navbar() {
       )}
 
       <span
-        className={`p-6 flex flex-col gap-6 md:hidden fixed top-0 left-0 bg-foreground text-white z-50 w-2/3 h-screen transition-transform duration-500 ${
+        className={`p-6 flex flex-col gap-6 md:hidden fixed top-0 left-0 bg-secondary text-black z-50 w-2/3 h-screen transition-transform duration-500 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <button onClick={toggleNav} className="self-end text-3xl mb-4">
-          X
+          <X />
         </button>
 
         <Link onClick={toggleNav} href="/">
