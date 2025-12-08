@@ -1,5 +1,5 @@
 import { useCart } from "@/context/cart-context";
-import { ChevronRight, Trash2, Wallet } from "lucide-react";
+import { ChevronRight, Trash2, Wallet, X } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../button";
 
@@ -21,12 +21,12 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
         <div onClick={toggleCart} className="fixed inset-0 bg-black/40 z-40" />
       ) : null}
       <aside
-        className={`p-6 flex flex-col justify-between fixed top-0 right-0 bg-slate-900 text-white z-50 w-2/3 max-w-sm h-screen transition-transform duration-500 ${
+        className={`p-6 flex flex-col justify-between fixed top-0 right-0 bg-secondary text-black z-50 w-2/3 max-w-sm h-screen transition-transform duration-500 ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <button className="self-end text-xl mb-4" onClick={toggleCart}>
-          X
+          <X />
         </button>
         <div className="grow overflow-auto">
           {cart.items.length === 0 ? (
@@ -57,7 +57,7 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
         </div>
         <div className="flex justify-center">
           <Link href="/order-summary" className="w-2/3 group m-4">
-            <Button className="w-full rounded-3xl text-lg bg-slate-600 hover:bg-slate-700">
+            <Button className="w-full rounded-3xl text-lg bg-accent hover:bg-accent-foreground">
               Checkout
               <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />
             </Button>
