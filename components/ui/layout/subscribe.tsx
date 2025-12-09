@@ -14,6 +14,37 @@ export default function Subscribe() {
     0
   );
 
+  function formatDate(date: Date) {
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  }
+
+  function getNextSunday() {
+    const today = new Date();
+    const day = today.getDay();
+    const diff = (7 - day) % 7;
+    const next = new Date(today);
+    next.setDate(today.getDate() + (diff === 0 ? 7 : diff));
+    return next;
+  }
+
+  function getFirstSundayNextMonth() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const firstDay = new Date(year, month + 1, 1);
+    const day = firstDay.getDay();
+    const diff = (7 - day) % 7;
+    firstDay.setDate(firstDay.getDate() + diff);
+    return firstDay;
+  }
+  const nextDelivery =
+    frequency === "weekly"
+      ? formatDate(getNextSunday())
+      : formatDate(getFirstSundayNextMonth());
+
   return (
     <div className="max-w-lg mx-auto mt-10 bg-white p-6 rounded-xl shadow-md space-y-6">
       <h3 className="text-2xl font-semibold">Order Summary</h3>
@@ -58,16 +89,19 @@ export default function Subscribe() {
             variant={frequency === "monthly" ? "outline" : "default"}
             onClick={() => setFrequency("monthly")}
             className={`text-black ${
-              frequency === "monthly" ? "bg-primary text-white" : "bg-background"
+              frequency === "monthly"
+                ? "bg-primary text-white"
+                : "bg-background"
             }`}
           >
             Monthly Delivery
           </Button>
         </div>
-
-        <p className="text-sm text-gray-500 mt-1">
-          All orders are delivered every <strong>Sunday morning</strong>.
-        </p>
+        {frequency && (
+          <p className="text-sm text-gray-500 mt-1">
+            Next delivery: <strong>{nextDelivery}</strong>
+          </p>
+        )}
       </div>
 
       <div className="border-t pt-4">
