@@ -48,7 +48,7 @@ export function Navbar() {
           <ShoppingCart />
           {totalItems > 0 && (
             <span
-              className="absolute top-7 right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+              className="absolute top-7 right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
               aria-label={`${totalItems} items in cart`}
             >
               {totalItems}

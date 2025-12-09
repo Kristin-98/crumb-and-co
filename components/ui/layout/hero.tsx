@@ -13,7 +13,7 @@ export default function Hero() {
               Subscribe today and treat yourself to handcrafted bakery boxes
               every month.
             </h1>
-            <Button className="group bg-accent text-white font-light rounded-full py-2 md:px-6 px-4 hover:bg-accent-foreground">
+            <Button className="group bg-primary text-white font-light rounded-full py-2 md:px-6 px-4 hover:bg-accent-foreground">
               Join our monthly subscription.
               <ChevronRight className="transition-transform duration-300 group-hover:translate-x-2" />
             </Button>
