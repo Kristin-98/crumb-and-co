@@ -11,22 +11,29 @@ export default async function ProductCard() {
   }
   return (
     <div>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-60">
         {products?.map((product) => (
-          <li key={product.id} className="border-2 p-4 mt-4">
-            <Link href={`/products/${product.id}`}>
+          <li
+            key={product.id}
+            className="rounded-2xl p-4 mt-4 shadow-xl max-w-md flex justify-self-center bg-white items-start"
+          >
+            <Link
+              href={`/products/${product.id}`}
+              className="flex flex-col items-center"
+            >
               <Image
                 src={product.image_url || "/heroImg.png"}
                 alt={product.name}
-                width={300}
+                width={500}
                 height={300}
-                className="object-cover"
+                layout="fixed"
+                className="object-cover h-[300px] rounded-2xl "
               />
-              <p>
-                <strong>{product.name}</strong>
+              <p className="font-light p-3 text-2xl">{product.name}</p>
+              <p className="line-clamp-2">{product.description}</p>
+              <p className="self-start py-2 px-3 mt-4 bg-primary rounded-3xl text-white hover:bg-accent-foreground">
+                {product.price} kr
               </p>
-              <p>{product.description}</p>
-              <p>{product.price} kr</p>
             </Link>
           </li>
         ))}
