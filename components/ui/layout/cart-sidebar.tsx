@@ -1,5 +1,6 @@
 import { useCart } from "@/context/cart-context";
 import { ChevronRight, Trash2, Wallet, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../button";
 
@@ -36,6 +37,13 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
               <div key={item.id} className="flex justify-between mb-4">
                 <span>
                   <p>{item.name}</p>
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={100}
+                    height={100}
+                    style={{ objectFit: "cover" }}
+                  />
                   <p>{item.price} kr</p>
                   <p>{item.quantity} pcs</p>
                 </span>
@@ -57,7 +65,7 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
         </div>
         <div className="flex justify-center">
           <Link href="/order-summary" className="w-2/3 group m-4">
-            <Button className="w-full rounded-3xl text-lg bg-accent hover:bg-accent-foreground">
+            <Button className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground">
               Checkout
               <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />
             </Button>
