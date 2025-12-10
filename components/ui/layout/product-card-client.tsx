@@ -26,7 +26,16 @@ export default function ProductCardClient({ products }: Props) {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.3 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.23 }}
+            whileHover={{
+              scale: 1.03,
+              y: -3,
+              boxShadow: "0px 12px 24px rgba(0, 0, 0, 0.15)",
+              transition: {
+                duration: 0.13,
+                ease: "easeOut",
+              },
+            }}
           >
             <Link
               href={`/products/${product.id}`}
