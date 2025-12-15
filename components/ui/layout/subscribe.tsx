@@ -48,7 +48,6 @@ export default function Subscribe() {
     return firstDay;
   }
 
-
   return (
     <div className=" bg-white p-6 rounded-xl shadow-md space-y-6 w-full max-w-md">
       <h3 className="text-2xl font-semibold">Order Summary</h3>

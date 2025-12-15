@@ -26,12 +26,14 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <button className="self-end text-xl mb-4" onClick={toggleCart}>
+        <button className="self-start text-xl mb-4" onClick={toggleCart}>
           <X />
         </button>
         <div className="grow overflow-auto">
           {cart.items.length === 0 ? (
-            <p>No Items available</p>
+            <p>
+              Your cart is empty.
+            </p>
           ) : (
             cart.items.map((item) => (
               <div key={item.id} className="flex justify-between mb-4">
@@ -64,8 +66,18 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
           <p>{totalPrice.toFixed(2)} kr</p>
         </div>
         <div className="flex justify-center">
-          <Link href="/order-summary" className="w-2/3 group m-4">
-            <Button className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground">
+          <Link
+            href={cart.items.length === 0 ? "#" : "/order-summary"}
+            passHref
+            className="w-2/3 group m-4"
+          >
+            <Button
+              disabled={cart.items.length === 0}
+              onClick={() => {
+                if (cart.items.length > 0) toggleCart();
+              }}
+              className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               Checkout
               <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />
             </Button>
