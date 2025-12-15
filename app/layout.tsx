@@ -31,12 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CartProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </CartProvider>
-        <Toaster position="top-center" />
+        <div className="min-h-screen flex flex-col antialiased">
+          <CartProvider>
+            <Navbar />
+            <main className="grow">{children}</main>
+            <Footer />
+          </CartProvider>
+          <Toaster position="top-center" />
+        </div>
       </body>
     </html>
   );

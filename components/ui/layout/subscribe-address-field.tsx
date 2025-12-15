@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { AddressFormValues, addressSchema } from "@/lib/schemas/address-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RotateCw } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Button } from "../button";
 
@@ -23,8 +24,14 @@ export function AddressFieldset() {
     <div className="w-full max-w-md space-y-6 bg-white p-6 rounded-xl shadow-md">
       <form
         noValidate
-        onSubmit={form.handleSubmit((data) => {
-          console.log("VALID FORM DATA:", data);
+        onSubmit={form.handleSubmit(async (data) => {
+          try {
+            await new Promise((resolve) => setTimeout(resolve, 6000));
+            console.log("VALID FORM DATA:", data);
+            form.reset();
+          } catch (error) {
+            console.error(error);
+          }
         })}
       >
         <FieldSet>
@@ -130,11 +137,14 @@ export function AddressFieldset() {
           </FieldGroup>
         </FieldSet>
         <Button
-          className="w-full mt-6 py-3 text-lg text-white disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={!form.formState.isValid || form.formState.isSubmitting}
           type="submit"
+          className="w-full mt-6 py-3 text-lg text-white disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
         >
-          Start Subscription
+          {form.formState.isSubmitting && (
+            <RotateCw className="w-5 h-5 animate-spin" />
+          )}
+          {form.formState.isSubmitting ? "Submitting..." : "Start Subscription"}
         </Button>
       </form>
     </div>
