@@ -21,12 +21,12 @@ export function AdressFieldset() {
         <FieldGroup>
           <div className="grid grid-cols-2 gap-4">
             <Field>
-              <FieldLabel htmlFor="city">First name</FieldLabel>
-              <Input id="city" type="text" placeholder="Kristin" />
+              <FieldLabel htmlFor="name">First name</FieldLabel>
+              <Input id="firstName" type="text" placeholder="Kristin" />
             </Field>
             <Field>
-              <FieldLabel htmlFor="zip">Last name</FieldLabel>
-              <Input id="zip" type="text" placeholder="Svensson" />
+              <FieldLabel htmlFor="name">Last name</FieldLabel>
+              <Input id="lastName" type="text" placeholder="Svensson" />
             </Field>
           </div>
           <Field>
@@ -43,6 +43,10 @@ export function AdressFieldset() {
               <Input id="zip" type="text" placeholder="90502" />
             </Field>
           </div>
+           <Field>
+              <FieldLabel htmlFor="name">E-mail</FieldLabel>
+              <Input id="email" type="text" placeholder="example@hotmail.com" />
+            </Field>
         </FieldGroup>
       </FieldSet>
       <Button className="w-full py-3 text-lg text-white">
