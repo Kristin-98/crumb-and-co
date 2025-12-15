@@ -1,13 +1,20 @@
 "use client";
 
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useCart } from "@/context/cart-context";
 import Image from "next/image";
-import { useState } from "react";
-import { Button } from "../button";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+  FieldTitle,
+} from "../field";
 
 export default function Subscribe() {
   const { cart } = useCart();
-  const [frequency, setFrequency] = useState<"weekly" | "monthly" | null>(null);
 
   const total = cart.items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -40,13 +47,10 @@ export default function Subscribe() {
     firstDay.setDate(firstDay.getDate() + diff);
     return firstDay;
   }
-  const nextDelivery =
-    frequency === "weekly"
-      ? formatDate(getNextSunday())
-      : formatDate(getFirstSundayNextMonth());
+
 
   return (
-    <div className="max-w-lg mx-auto mt-10 bg-white p-6 rounded-xl shadow-md space-y-6">
+    <div className=" bg-white p-6 rounded-xl shadow-md space-y-6 w-full max-w-md">
       <h3 className="text-2xl font-semibold">Order Summary</h3>
 
       <div className="space-y-4">
@@ -69,48 +73,47 @@ export default function Subscribe() {
         ))}
       </div>
 
-      <div className="py-2">
-        <p className="text-gray-700 font-medium">
-          Choose your delivery frequency:
-        </p>
+      <div className="w-full max-w-md">
+        <FieldGroup>
+          <FieldSet>
+            <FieldLabel htmlFor="compute-environment-p8w">
+              Delivery frequency:
+            </FieldLabel>
+            <FieldDescription>
+              Choose how often you want your order delivered.
+            </FieldDescription>
 
-        <div className="flex flex-col gap-3">
-          <Button
-            variant={frequency === "weekly" ? "outline" : "default"}
-            onClick={() => setFrequency("weekly")}
-            className={`text-black ${
-              frequency === "weekly" ? "bg-primary text-white" : "bg-background"
-            }`}
-          >
-            Weekly Delivery
-          </Button>
+            <RadioGroup>
+              <FieldLabel>
+                <Field orientation="horizontal">
+                  <FieldContent>
+                    <FieldTitle>Weekly Delivery</FieldTitle>
+                    <FieldDescription>
+                      Next delivery: {formatDate(getNextSunday())}
+                    </FieldDescription>
+                  </FieldContent>
+                  <RadioGroupItem value="weekly" id="weekly" />
+                </Field>
+              </FieldLabel>
 
-          <Button
-            variant={frequency === "monthly" ? "outline" : "default"}
-            onClick={() => setFrequency("monthly")}
-            className={`text-black ${
-              frequency === "monthly"
-                ? "bg-primary text-white"
-                : "bg-background"
-            }`}
-          >
-            Monthly Delivery
-          </Button>
-        </div>
-        {frequency && (
-          <p className="text-sm text-gray-500 mt-1">
-            Next delivery: <strong>{nextDelivery}</strong>
-          </p>
-        )}
+              <FieldLabel>
+                <Field orientation="horizontal">
+                  <FieldContent>
+                    <FieldTitle>Monthly Delivery</FieldTitle>
+                    <FieldDescription>
+                      Next delivery: {formatDate(getFirstSundayNextMonth())}
+                    </FieldDescription>
+                  </FieldContent>
+                  <RadioGroupItem value="monthly" id="monthly" />
+                </Field>
+              </FieldLabel>
+            </RadioGroup>
+          </FieldSet>
+        </FieldGroup>
       </div>
-
       <div className="border-t pt-4">
         <p className="text-lg font-semibold">Total: {total} kr</p>
       </div>
-
-      <Button disabled={!frequency} className="w-full py-3 text-lg text-white">
-        Start Subscription
-      </Button>
     </div>
   );
 }
