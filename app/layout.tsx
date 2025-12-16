@@ -1,5 +1,6 @@
 import Footer from "@/components/ui/layout/footer";
 import { Navbar } from "@/components/ui/layout/navbar";
+import { AuthProvider } from "@/components/ui/providers/auth-provider";
 import { CartProvider } from "@/context/cart-context";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -32,11 +33,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="min-h-screen flex flex-col antialiased">
-          <CartProvider>
-            <Navbar />
-            <main className="grow">{children}</main>
-            <Footer />
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              <Navbar />
+              <main className="grow">{children}</main>
+              <Footer />
+            </CartProvider>
+          </AuthProvider>
           <Toaster position="top-center" />
         </div>
       </body>

@@ -5,12 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LoginButton } from "../auth/login-button";
+import { LogoutButton } from "../auth/logout-button";
+import { useAuth } from "../providers/auth-provider";
 import CartSidebar from "./cart-sidebar";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart } = useCart();
+  const { user, loading } = useAuth();
   const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
   const toggleCart = () => setIsCartOpen((prev) => !prev);
@@ -19,6 +22,8 @@ export function Navbar() {
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
+
+  if (loading) return null;
 
   return (
     <>
@@ -44,7 +49,13 @@ export function Navbar() {
           <Link href="/products">Products</Link>
           <Link href="/about">My Orders</Link>
         </nav>
-        <LoginButton />
+        {user ? (
+          <div className="flex items-center gap-3">
+            <LogoutButton />
+          </div>
+        ) : (
+          <LoginButton />
+        )}
 
         <button onClick={toggleCart}>
           <ShoppingCart />
