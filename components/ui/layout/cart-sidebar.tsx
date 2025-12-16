@@ -1,7 +1,9 @@
+import { useAuth } from "@/providers/auth-provider";
 import { useCart } from "@/providers/cart-provider";
 import { ChevronRight, Trash2, Wallet, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "../button";
 
 interface ICartSideBar {
@@ -10,11 +12,23 @@ interface ICartSideBar {
 }
 
 export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
+  const { user } = useAuth();
+  const router = useRouter();
   const { cart, removeFromCart } = useCart();
   const totalPrice = cart.items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const handleCheckout = () => {
+    if (cart.items.length === 0) return;
+    if (user) {
+      toggleCart();
+      router.push("/order-summary");
+    } else {
+      router.push("/login?redirect=/order-summary");
+    }
+  };
 
   return (
     <div>
@@ -71,9 +85,7 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
           >
             <Button
               disabled={cart.items.length === 0}
-              onClick={() => {
-                if (cart.items.length > 0) toggleCart();
-              }}
+              onClick={handleCheckout}
               className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Checkout

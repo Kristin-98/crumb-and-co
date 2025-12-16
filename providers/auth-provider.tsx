@@ -1,8 +1,8 @@
 "use client";
 
-import { supabase } from "@/lib/dbClient";
 import { User } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
+import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 
 type AuthContextType = {
   user: User | null;
@@ -18,20 +18,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const supabase = createBrowserSupabaseClient();
+
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
+      setUser(data.user ?? null);
       setLoading(false);
     });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    const { data: subscription } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
 
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => {
+      subscription.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   return (
     <AuthContext.Provider value={{ user, loading }}>
