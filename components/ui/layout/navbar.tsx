@@ -1,12 +1,12 @@
 "use client";
-import { useCart } from "@/context/cart-context";
+import { useCart } from "@/providers/cart-provider";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../../providers/auth-provider";
 import { LoginButton } from "../auth/login-button";
 import { LogoutButton } from "../auth/logout-button";
-import { useAuth } from "../providers/auth-provider";
 import CartSidebar from "./cart-sidebar";
 
 export function Navbar() {

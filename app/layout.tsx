@@ -1,7 +1,7 @@
 import Footer from "@/components/ui/layout/footer";
 import { Navbar } from "@/components/ui/layout/navbar";
-import { AuthProvider } from "@/components/ui/providers/auth-provider";
-import { CartProvider } from "@/context/cart-context";
+import { AuthProvider } from "@/providers/auth-provider";
+import { CartProvider } from "@/providers/cart-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";

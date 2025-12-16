@@ -1,4 +1,4 @@
-import { useCart } from "@/context/cart-context";
+import { useCart } from "@/providers/cart-provider";
 import { ChevronRight, Trash2, Wallet, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,9 +31,7 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
         </button>
         <div className="grow overflow-auto">
           {cart.items.length === 0 ? (
-            <p>
-              Your cart is empty.
-            </p>
+            <p>Your cart is empty.</p>
           ) : (
             cart.items.map((item) => (
               <div key={item.id} className="flex justify-between mb-4">
