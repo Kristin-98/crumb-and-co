@@ -4,6 +4,7 @@ import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { LoginButton } from "../auth/login-button";
 import CartSidebar from "./cart-sidebar";
 
 export function Navbar() {
@@ -43,6 +44,7 @@ export function Navbar() {
           <Link href="/products">Products</Link>
           <Link href="/about">My Orders</Link>
         </nav>
+        <LoginButton />
 
         <button onClick={toggleCart}>
           <ShoppingCart />
