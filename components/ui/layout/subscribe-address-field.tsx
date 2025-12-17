@@ -11,14 +11,27 @@ import { Input } from "@/components/ui/input";
 import { AddressFormValues, addressSchema } from "@/lib/schemas/address-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RotateCw } from "lucide-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../../providers/auth-provider";
 import { Button } from "../button";
 
 export function AddressFieldset() {
+  const { user } = useAuth();
   const form = useForm<AddressFormValues>({
     resolver: zodResolver(addressSchema),
     mode: "onChange",
   });
+
+  useEffect(() => {
+    if (!user) return;
+
+    form.reset({
+      email: user.email ?? "",
+      firstName: user.user_metadata?.firstName ?? "",
+      lastName: user.user_metadata?.lastName ?? "",
+    });
+  }, [user, form]);
 
   return (
     <div className="w-full max-w-md space-y-6 bg-white p-6 rounded-xl shadow-md">

@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductInput, useCart } from "@/context/cart-context";
+import { ProductInput, useCart } from "@/providers/cart-provider";
 import { toast } from "sonner";
 import { Button } from "../button";
 

@@ -1,15 +1,18 @@
 "use client";
-import { useCart } from "@/context/cart-context";
+import { useCart } from "@/providers/cart-provider";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../../providers/auth-provider";
+import { LogoutButton } from "../auth/logout-button";
 import CartSidebar from "./cart-sidebar";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart } = useCart();
+  const { user, loading } = useAuth();
   const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
   const toggleCart = () => setIsCartOpen((prev) => !prev);
@@ -18,6 +21,8 @@ export function Navbar() {
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
+
+  if (loading) return null;
 
   return (
     <>
@@ -43,18 +48,25 @@ export function Navbar() {
           <Link href="/products">Products</Link>
           <Link href="/about">My Orders</Link>
         </nav>
-
-        <button onClick={toggleCart}>
-          <ShoppingCart />
-          {totalItems > 0 && (
-            <span
-              className="absolute top-7 right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
-              aria-label={`${totalItems} items in cart`}
-            >
-              {totalItems}
+        <div className="flex flex-row gap-5">
+          {user && (
+            <span className="md:flex items-center gap-3 hidden">
+              <LogoutButton />
             </span>
           )}
-        </button>
+
+          <button onClick={toggleCart}>
+            <ShoppingCart />
+            {totalItems > 0 && (
+              <span
+                className="absolute top-7 right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                aria-label={`${totalItems} items in cart`}
+              >
+                {totalItems}
+              </span>
+            )}
+          </button>
+        </div>
       </header>
       <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
 
@@ -83,6 +95,11 @@ export function Navbar() {
         <Link onClick={toggleNav} href="/about">
           My Orders
         </Link>
+        {user && (
+          <div className="mt-auto pt-6 border-t flex justify-center">
+            <LogoutButton />
+          </div>
+        )}
       </span>
     </>
   );

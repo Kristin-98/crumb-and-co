@@ -1,7 +1,7 @@
 "use client";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useCart } from "@/context/cart-context";
+import { useCart } from "@/providers/cart-provider";
 import Image from "next/image";
 import {
   Field,
