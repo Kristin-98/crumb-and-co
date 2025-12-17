@@ -1,17 +1,23 @@
 "use client";
 import {
   Field,
+  FieldContent,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSet,
+  FieldTitle,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { AddressFormValues, addressSchema } from "@/lib/schemas/address-schema";
+import { useCart } from "@/providers/cart-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { RotateCw } from "lucide-react";
-import { useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../../providers/auth-provider";
 import { Button } from "../button";
@@ -32,18 +38,132 @@ export function AddressFieldset() {
       lastName: user.user_metadata?.lastName ?? "",
     });
   }, [user, form]);
+  const { cart, clearCart } = useCart();
+  const router = useRouter();
+  const total = cart.items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const [selectedFrequency, setSelectedFrequency] = useState("weekly");
+
+  function formatDate(date: Date) {
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  }
+
+  function getNextSunday() {
+    const today = new Date();
+    const day = today.getDay();
+    const diff = (7 - day) % 7;
+    const next = new Date(today);
+    next.setDate(today.getDate() + (diff === 0 ? 7 : diff));
+    return next;
+  }
+
+  function getFirstSundayNextMonth() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const firstDay = new Date(year, month + 1, 1);
+    const day = firstDay.getDay();
+    const diff = (7 - day) % 7;
+    firstDay.setDate(firstDay.getDate() + diff);
+    return firstDay;
+  }
 
   return (
     <div className="w-full max-w-md space-y-6 bg-white p-6 rounded-xl shadow-md">
+      <h3 className="text-2xl font-semibold">Order Summary</h3>
+
+      <div className="space-y-4">
+        {cart.items.map((item) => (
+          <div key={item.id} className="flex items-center gap-4 border-b pb-4">
+            <Image
+              src={item.image}
+              alt={item.name}
+              width={80}
+              height={80}
+              className="rounded-lg object-cover"
+            />
+
+            <div className="flex-1">
+              <p className="font-semibold">{item.name}</p>
+              <p className="text-gray-600">{item.price} kr</p>
+              <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="w-full max-w-md">
+        <FieldGroup>
+          <FieldSet>
+            <FieldLabel htmlFor="delivery-frequency">
+              Delivery frequency:
+            </FieldLabel>
+            <FieldDescription>
+              Choose how often you want your order delivered.
+            </FieldDescription>
+
+            <RadioGroup
+              value={selectedFrequency}
+              onValueChange={(value) => setSelectedFrequency(value)}
+              id="delivery-frequency"
+            >
+              <FieldLabel>
+                <Field orientation="horizontal">
+                  <FieldContent>
+                    <FieldTitle>Weekly Delivery</FieldTitle>
+                    <FieldDescription>
+                      Next delivery: {formatDate(getNextSunday())}
+                    </FieldDescription>
+                  </FieldContent>
+                  <RadioGroupItem value="weekly" id="weekly" />
+                </Field>
+              </FieldLabel>
+
+              <FieldLabel>
+                <Field orientation="horizontal">
+                  <FieldContent>
+                    <FieldTitle>Monthly Delivery</FieldTitle>
+                    <FieldDescription>
+                      Next delivery: {formatDate(getFirstSundayNextMonth())}
+                    </FieldDescription>
+                  </FieldContent>
+                  <RadioGroupItem value="monthly" id="monthly" />
+                </Field>
+              </FieldLabel>
+            </RadioGroup>
+          </FieldSet>
+        </FieldGroup>
+      </div>
+      <div className="border-t pt-4">
+        <p className="text-lg font-semibold">Total: {total} kr</p>
+      </div>
+
       <form
         noValidate
         onSubmit={form.handleSubmit(async (data) => {
           try {
-            await new Promise((resolve) => setTimeout(resolve, 6000));
-            console.log("VALID FORM DATA:", data);
-            form.reset();
-          } catch (error) {
-            console.error(error);
+            const res = await fetch("/api/orders", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                items: cart.items,
+                total,
+                frequency: selectedFrequency,
+                address: data,
+              }),
+            });
+
+            if (!res.ok) throw new Error("Order failed");
+
+            clearCart();
+            router.push("/order-success");
+          } catch (err) {
+            console.error(err);
           }
         })}
       >
