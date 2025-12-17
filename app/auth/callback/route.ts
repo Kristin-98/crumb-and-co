@@ -1,10 +1,15 @@
-import { NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  const next = url.searchParams.get("next") ?? "/";
+
+  let next = url.searchParams.get("next") ?? "/";
+
+  if (!next.startsWith("/")) {
+    next = "/";
+  }
 
   if (!code) {
     return NextResponse.redirect(new URL("/login", url.origin));

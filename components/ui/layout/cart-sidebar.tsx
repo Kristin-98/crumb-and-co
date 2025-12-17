@@ -2,7 +2,6 @@ import { useAuth } from "@/providers/auth-provider";
 import { useCart } from "@/providers/cart-provider";
 import { ChevronRight, Trash2, Wallet, X } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "../button";
 
@@ -78,20 +77,14 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
           <p>{totalPrice.toFixed(2)} kr</p>
         </div>
         <div className="flex justify-center">
-          <Link
-            href={cart.items.length === 0 ? "#" : "/order-summary"}
-            passHref
-            className="w-2/3 group m-4"
+          <Button
+            disabled={cart.items.length === 0}
+            onClick={handleCheckout}
+            className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Button
-              disabled={cart.items.length === 0}
-              onClick={handleCheckout}
-              className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Checkout
-              <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />
-            </Button>
-          </Link>
+            Checkout
+            <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />
+          </Button>
         </div>
       </aside>
     </div>
