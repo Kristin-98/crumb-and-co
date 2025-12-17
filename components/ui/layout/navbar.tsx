@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../providers/auth-provider";
-import { LoginButton } from "../auth/login-button";
 import { LogoutButton } from "../auth/logout-button";
 import CartSidebar from "./cart-sidebar";
 
@@ -49,25 +48,25 @@ export function Navbar() {
           <Link href="/products">Products</Link>
           <Link href="/about">My Orders</Link>
         </nav>
-        {user ? (
-          <div className="flex items-center gap-3">
-            <LogoutButton />
-          </div>
-        ) : (
-          <LoginButton />
-        )}
-
-        <button onClick={toggleCart}>
-          <ShoppingCart />
-          {totalItems > 0 && (
-            <span
-              className="absolute top-7 right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
-              aria-label={`${totalItems} items in cart`}
-            >
-              {totalItems}
+        <div className="flex flex-row gap-5">
+          {user && (
+            <span className="md:flex items-center gap-3 hidden">
+              <LogoutButton />
             </span>
           )}
-        </button>
+
+          <button onClick={toggleCart}>
+            <ShoppingCart />
+            {totalItems > 0 && (
+              <span
+                className="absolute top-7 right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                aria-label={`${totalItems} items in cart`}
+              >
+                {totalItems}
+              </span>
+            )}
+          </button>
+        </div>
       </header>
       <CartSidebar isCartOpen={isCartOpen} toggleCart={toggleCart} />
 
@@ -96,6 +95,11 @@ export function Navbar() {
         <Link onClick={toggleNav} href="/about">
           My Orders
         </Link>
+        {user && (
+          <div className="mt-auto pt-6 border-t flex justify-center">
+            <LogoutButton />
+          </div>
+        )}
       </span>
     </>
   );
