@@ -46,7 +46,7 @@ export function Navbar() {
         <nav className="hidden md:flex gap-6">
           <Link href="/">Home</Link>
           <Link href="/products">Products</Link>
-          <Link href="/handle-my-subscription">My Orders</Link>
+          <Link href="/my-subscription">My Orders</Link>
         </nav>
         <div className="flex flex-row gap-5">
           {user && (
@@ -92,7 +92,7 @@ export function Navbar() {
         <Link onClick={toggleNav} href="/products">
           Products
         </Link>
-        <Link onClick={toggleNav} href="/handle-my-subscription">
+        <Link onClick={toggleNav} href="/my-subscription">
           My Orders
         </Link>
         {user && (
