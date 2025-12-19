@@ -18,7 +18,8 @@ interface Props {
 export default function ProductCardClient({ products }: Props) {
   return (
     <div>
-      <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-60">
+      <h3 className="font-bold text-3xl">Our Products</h3>
+      <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {products?.map((product, index) => (
           <motion.li
             key={product.id}
