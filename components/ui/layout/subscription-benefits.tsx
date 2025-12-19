@@ -32,7 +32,7 @@ export default function SubscriptionBenefits() {
           alt="baking"
           width={300}
           height={300}
-          className="rounded-3xl"
+          className="rounded-3xl hidden md:flex"
         />
       </motion.div>
 
@@ -65,7 +65,7 @@ export default function SubscriptionBenefits() {
           alt="bagels"
           width={300}
           height={300}
-          className="rounded-3xl"
+          className="rounded-3xl hidden md:flex"
         />
       </motion.div>
     </div>
