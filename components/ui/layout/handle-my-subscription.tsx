@@ -2,23 +2,24 @@
 
 import { deleteOrder, updateOrderFrequency } from "@/app/actions/orders";
 import type { Order } from "@/types/orders";
-import { PencilLine, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useTransition } from "react";
 import { Button } from "../button";
+import { DeleteMySubscription } from "./delete-my-subscription";
+import { EditMySubscription } from "./edit-my-subscription";
 
-interface Props {
+interface IProps {
   orders: Order[];
 }
 
-export default function HandleMySubscription({ orders }: Props) {
+export default function HandleMySubscription({ orders }: IProps) {
   const [isPending, startTransition] = useTransition();
 
   return (
     <>
-      <h2 className="text-2xl font-semibold mb-6">My Subscription</h2>
-
-      <div className="space-y-6">
+      <div className="flex flex-col justify-center items-center gap-6">
+        <h2 className="text-2xl font-semibold mb-6">Manage Your Subscription</h2>
         {orders.map((order) => (
           <div
             key={order.id}
@@ -66,9 +67,9 @@ export default function HandleMySubscription({ orders }: Props) {
                     updateOrderFrequency(order.id, "weekly")
                   )
                 }
-              >
-                <PencilLine />
-              </Button>
+              ></Button>
+              <EditMySubscription />
+              <DeleteMySubscription />
 
               <Button
                 variant="destructive"
