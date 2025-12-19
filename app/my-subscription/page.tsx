@@ -16,13 +16,22 @@ export default async function MySubscription() {
   const { data, error } = await supabase
     .from("orders")
     .select(
-      `id, total, delivery_frequency, created_at,
-       order_items (
-         quantity, price,
-         products (
-           id, name, image_url, description
-         )
-       )`
+      `
+      id,
+      total,
+      delivery_frequency,
+      created_at,
+      order_items (
+        quantity,
+        price,
+        products:products (
+          id,
+          name,
+          image_url,
+          description
+        )
+      )
+    `
     )
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
@@ -36,15 +45,17 @@ export default async function MySubscription() {
     return <p>You have no active subscriptions.</p>;
   }
 
-  const transformedOrders: Order[] = data.map((order) => ({
+  const normalizedOrders: Order[] = data.map((order) => ({
     ...order,
     order_items: order.order_items.map((item) => ({
       ...item,
       products: Array.isArray(item.products)
-        ? item.products[0]
-        : item.products ?? null,
+        ? item.products
+        : item.products
+        ? [item.products]
+        : [],
     })),
   }));
 
-  return <HandleMySubscription orders={transformedOrders} />;
+  return <HandleMySubscription orders={normalizedOrders} />;
 }

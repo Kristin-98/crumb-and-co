@@ -1,14 +1,11 @@
 "use client";
 
+import { deleteOrder, updateOrderFrequency } from "@/app/actions/orders";
+import type { Order } from "@/types/orders";
 import { PencilLine, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../button";
 import { useTransition } from "react";
-import {
-  deleteOrder,
-  updateOrderFrequency,
-} from "@/app/actions/orders";
-import type { Order } from "@/types/orders";
+import { Button } from "../button";
 
 interface Props {
   orders: Order[];
@@ -27,48 +24,37 @@ export default function HandleMySubscription({ orders }: Props) {
             key={order.id}
             className="rounded-2xl p-4 shadow-xl max-w-md bg-white"
           >
-            {order.order_items.map((item, index) => {
-              const product = item.products;
+            {order.order_items.map((item, index) => (
+              <div key={index}>
+                {item.products.length === 0 && (
+                  <p className="text-sm text-red-500">Product missing</p>
+                )}
 
-              if (!product) {
-                return (
-                  <p key={index} className="text-sm text-red-500">
-                    No product found
-                  </p>
-                );
-              }
-
-              return (
-                <div key={index} className="flex gap-4 mb-4">
-                  <Image
-                    src={product.image_url}
-                    alt={product.name}
-                    width={80}
-                    height={80}
-                    className="rounded-lg object-cover"
-                  />
-
-                  <div>
-                    <h3 className="font-semibold">{product.name}</h3>
-                    <p className="text-sm text-gray-600">
-                      Qty: {item.quantity}
-                    </p>
-                    <p className="text-sm">{item.price} kr</p>
+                {item.products.map((product) => (
+                  <div key={product.id} className="flex gap-4 mb-4">
+                    <Image
+                      src={product.image_url}
+                      alt={product.name}
+                      width={80}
+                      height={80}
+                      className="rounded-lg object-cover"
+                    />
+                    <div>
+                      <h3 className="font-semibold">{product.name}</h3>
+                      <p className="text-sm">Qty: {item.quantity}</p>
+                      <p className="text-sm">{item.price} kr</p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                ))}
+              </div>
+            ))}
 
             <p className="text-sm text-gray-600 mb-2">
               Delivery:{" "}
-              <strong className="capitalize">
-                {order.delivery_frequency}
-              </strong>
+              <strong className="capitalize">{order.delivery_frequency}</strong>
             </p>
 
-            <p className="font-semibold mb-4">
-              Total: {order.total} kr
-            </p>
+            <p className="font-semibold mb-4">Total: {order.total} kr</p>
 
             <div className="flex gap-2">
               <Button
@@ -88,9 +74,7 @@ export default function HandleMySubscription({ orders }: Props) {
                 variant="destructive"
                 size="icon"
                 disabled={isPending}
-                onClick={() =>
-                  startTransition(() => deleteOrder(order.id))
-                }
+                onClick={() => startTransition(() => deleteOrder(order.id))}
               >
                 <Trash2 />
               </Button>
