@@ -32,7 +32,7 @@ export default async function ProductPage({ params }: IProductPage) {
   return (
     <div className="p-8 max-w-2xl mx-auto pt-20">
       <Image
-        src={product.image_url || "/heroImg.png"}
+        src={product.image_url || "/hero.png"}
         alt={product.name}
         width={500}
         height={500}

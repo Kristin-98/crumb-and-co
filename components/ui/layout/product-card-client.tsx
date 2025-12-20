@@ -43,7 +43,7 @@ export default function ProductCardClient({ products }: Props) {
               className="flex flex-col items-center"
             >
               <Image
-                src={product.image_url || "/heroImg.png"}
+                src={product.image_url || "hero.png"}
                 alt={product.name}
                 width={500}
                 height={300}
