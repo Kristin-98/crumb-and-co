@@ -2,10 +2,8 @@
 
 import { deleteOrder, updateOrderFrequency } from "@/app/actions/orders";
 import type { Order } from "@/types/orders";
-import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useTransition } from "react";
-import { Button } from "../button";
 import { DeleteMySubscription } from "./delete-my-subscription";
 import { EditMySubscription } from "./edit-my-subscription";
 
@@ -19,7 +17,9 @@ export default function HandleMySubscription({ orders }: IProps) {
   return (
     <>
       <div className="flex flex-col justify-center items-center gap-6">
-        <h2 className="text-2xl font-semibold mb-6">Manage Your Subscription</h2>
+        <h2 className="text-2xl font-semibold mb-6">
+          Manage Your Subscription
+        </h2>
         {orders.map((order) => (
           <div
             key={order.id}
@@ -58,27 +58,21 @@ export default function HandleMySubscription({ orders }: IProps) {
             <p className="font-semibold mb-4">Total: {order.total} kr</p>
 
             <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                disabled={isPending}
-                onClick={() =>
+              <EditMySubscription
+                orderId={order.id}
+                currentFrequency={order.delivery_frequency}
+                onSave={(frequency) =>
                   startTransition(() =>
-                    updateOrderFrequency(order.id, "weekly")
+                    updateOrderFrequency(order.id, frequency)
                   )
                 }
-              ></Button>
-              <EditMySubscription />
-              <DeleteMySubscription />
+                isPending={isPending}
+              />
 
-              <Button
-                variant="destructive"
-                size="icon"
-                disabled={isPending}
-                onClick={() => startTransition(() => deleteOrder(order.id))}
-              >
-                <Trash2 />
-              </Button>
+              <DeleteMySubscription
+                onConfirm={() => startTransition(() => deleteOrder(order.id))}
+                isPending={isPending}
+              />
             </div>
           </div>
         ))}

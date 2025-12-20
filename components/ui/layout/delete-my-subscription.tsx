@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,15 +10,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
-export function DeleteMySubscription() {
+interface IProps {
+  onConfirm: () => void;
+  isPending?: boolean;
+}
+
+export function DeleteMySubscription({ onConfirm, isPending }: IProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Cancel subscription</Button>
+        <Button variant="destructive">Cancel subscription</Button>
       </AlertDialogTrigger>
+
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -25,11 +33,14 @@ export function DeleteMySubscription() {
             subscription.
           </AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogCancel className=" hover:bg-white">Keep subscription</AlertDialogCancel>
+          <AlertDialogAction disabled={isPending} onClick={onConfirm}>
+            Yes, cancel it
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }
