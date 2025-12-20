@@ -35,7 +35,7 @@ export function DeleteMySubscription({ onConfirm, isPending }: IProps) {
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Keep subscription</AlertDialogCancel>
+          <AlertDialogCancel className=" hover:bg-white">Keep subscription</AlertDialogCancel>
           <AlertDialogAction disabled={isPending} onClick={onConfirm}>
             Yes, cancel it
           </AlertDialogAction>

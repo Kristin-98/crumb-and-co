@@ -40,7 +40,9 @@ export function EditMySubscription({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit subscription</Button>
+        <Button variant="outline" className=" hover:bg-white">
+          Edit subscription
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
@@ -79,7 +81,9 @@ export function EditMySubscription({
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button className=" hover:bg-white" variant="outline">
+              Cancel
+            </Button>
           </DialogClose>
 
           <DialogClose asChild>
