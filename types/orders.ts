@@ -14,7 +14,7 @@ export interface OrderItem {
 export interface Order {
   id: string;
   total: number;
-  delivery_frequency: string;
+  delivery_frequency: DeliveryFrequency;
   created_at: string;
   order_items: OrderItem[];
 }
