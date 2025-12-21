@@ -20,7 +20,7 @@ export default function BuyButton({ product }: IBuyButton) {
   return (
     <Button
       onClick={handleClick}
-      className="py-2 px-3 bg-primary rounded-3xl text-white hover:bg-accent-foreground"
+      className="py-2 px-3 bg-primary rounded-3xl text-white hover:bg-accent-foreground cursor-pointer"
     >
       Add to cart
     </Button>
