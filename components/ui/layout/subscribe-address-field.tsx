@@ -10,10 +10,10 @@ import {
   FieldTitle,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { AddressFormValues, addressSchema } from "@/lib/schemas/address-schema";
 import { useCart } from "@/providers/cart-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { RotateCw } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -75,14 +75,14 @@ export function AddressFieldset() {
 
   return (
     <div className="w-full max-w-md space-y-6 bg-white p-6 rounded-xl shadow-md">
-      <h3 className="text-2xl font-semibold">Order Summary</h3>
+      <h2 className="text-2xl font-semibold">Order Summary</h2>
 
       <div className="space-y-4">
         {cart.items.map((item) => (
           <div key={item.id} className="flex items-center gap-4 border-b pb-4">
             <Image
               src={item.image}
-              alt={item.name}
+              alt={""}
               width={80}
               height={80}
               className="rounded-lg object-cover"
@@ -100,9 +100,7 @@ export function AddressFieldset() {
       <div className="w-full max-w-md">
         <FieldGroup>
           <FieldSet>
-            <FieldLabel htmlFor="delivery-frequency">
-              Delivery frequency:
-            </FieldLabel>
+            <FieldLegend>Delivery frequency:</FieldLegend>
             <FieldDescription>
               Choose how often you want your order delivered.
             </FieldDescription>
@@ -112,7 +110,7 @@ export function AddressFieldset() {
               onValueChange={(value) => setSelectedFrequency(value)}
               id="delivery-frequency"
             >
-              <FieldLabel>
+              <FieldLabel htmlFor="weekly">
                 <Field orientation="horizontal">
                   <FieldContent>
                     <FieldTitle>Weekly Delivery</FieldTitle>
@@ -124,7 +122,7 @@ export function AddressFieldset() {
                 </Field>
               </FieldLabel>
 
-              <FieldLabel>
+              <FieldLabel htmlFor="monthly">
                 <Field orientation="horizontal">
                   <FieldContent>
                     <FieldTitle>Monthly Delivery</FieldTitle>

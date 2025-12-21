@@ -33,6 +33,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="min-h-screen flex flex-col antialiased">
+          <h1 className="sr-only">Welcome to Crumb & Co Bakery</h1>
           <AuthProvider>
             <CartProvider>
               <Navbar />

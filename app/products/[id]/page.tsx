@@ -33,7 +33,7 @@ export default async function ProductPage({ params }: IProductPage) {
     <div className="p-8 mx-auto pt-20 flex md:flex-row flex-col justify-center">
       <Image
         src={product.image_url || "/hero.png"}
-        alt={product.name}
+        alt={""}
         width={500}
         height={500}
         className="rounded-lg object-cover"

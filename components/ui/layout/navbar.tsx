@@ -49,7 +49,6 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden md:flex gap-6">
-          {/* <Link aria-hidden="true" href="/">Home</Link> */}
           <Link href="/about-us">About Us</Link>
           <Link href="/my-subscription">My Orders</Link>
         </nav>
@@ -60,7 +59,7 @@ export function Navbar() {
             </span>
           )}
 
-          <button onClick={toggleCart}>
+          <button type="button" aria-label="Open sidebar menu" onClick={toggleCart}>
             <ShoppingCart />
             {totalItems > 0 && (
               <span
