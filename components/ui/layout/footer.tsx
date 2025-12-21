@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="flex flex-col items-center space-y-4 text-center">
             <Image
               src="/logo-secondary.png"
-              alt="Crumb & Co"
+              alt="Crumb & Co logo"
               width={120}
               height={32}
             />
@@ -63,7 +63,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-secondary/20 pt-6 text-center text-xs text-secondary/60">
-          © 2025 Crumb & Co. All rights reserved.
+           2025 Crumb & Co
         </div>
       </div>
     </footer>

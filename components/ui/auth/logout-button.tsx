@@ -6,6 +6,7 @@ import { Button } from "../button";
 export function LogoutButton() {
   return (
     <Button
+      type="button"
       onClick={async () => {
         await signOut();
         window.location.href = "/";

@@ -28,7 +28,12 @@ export function Navbar() {
     <>
       <header className="justify-between items-center flex p-3 text-foreground bg-background sticky top-0 left-0 right-0 px-3 md:px-8 z-10">
         {!isOpen && (
-          <button onClick={toggleNav} className="md:hidden">
+          <button
+            type="button"
+            aria-label="Open navigation menu"
+            onClick={toggleNav}
+            className="md:hidden"
+          >
             <Menu />
           </button>
         )}
@@ -44,7 +49,7 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden md:flex gap-6">
-          <Link href="/">Home</Link>
+          {/* <Link aria-hidden="true" href="/">Home</Link> */}
           <Link href="/about-us">About Us</Link>
           <Link href="/my-subscription">My Orders</Link>
         </nav>
@@ -82,7 +87,12 @@ export function Navbar() {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <button onClick={toggleNav} className="self-end text-3xl mb-4">
+        <button
+          type="button"
+          aria-label="Close navigation menu"
+          onClick={toggleNav}
+          className="self-end text-3xl mb-4"
+        >
           <X />
         </button>
 

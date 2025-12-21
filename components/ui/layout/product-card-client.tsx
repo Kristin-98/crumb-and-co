@@ -44,13 +44,13 @@ export default function ProductCardClient({ products }: Props) {
             >
               <Image
                 src={product.image_url || "hero.png"}
-                alt={product.name}
+                alt={""}
                 width={500}
                 height={300}
                 layout="fixed"
                 className="object-cover h-[300px] rounded-2xl "
               />
-              <p className="font-light p-3 text-2xl">{product.name}</p>
+              <h3 className="font-light p-3 text-2xl">{product.name}</h3>
               <p className="line-clamp-2">{product.description}</p>
               <p className="self-start py-2 px-3 mt-4 bg-primary rounded-3xl text-white hover:bg-accent-foreground">
                 {product.price} kr

@@ -16,8 +16,8 @@ export default function Hero() {
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
           <h1>Where</h1>
-          <p>quality meets</p>
-          <p className="pb-4">comfort</p>
+          <h2>quality meets</h2>
+          <h2 className="pb-4">comfort</h2>
           
           <Link href="#products">
             <button
