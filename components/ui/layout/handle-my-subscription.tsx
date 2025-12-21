@@ -35,7 +35,7 @@ export default function HandleMySubscription({ orders }: IProps) {
                   <div key={product.id} className="flex gap-4 mb-4">
                     <Image
                       src={product.image_url}
-                      alt={product.name}
+                      alt={""}
                       width={80}
                       height={80}
                       className="rounded-lg object-cover"
