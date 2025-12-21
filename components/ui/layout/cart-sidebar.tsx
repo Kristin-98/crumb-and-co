@@ -39,7 +39,12 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <button className="self-start text-xl mb-4" onClick={toggleCart}>
+        <button
+          type="button"
+          aria-label="Close side-cart menu"
+          className="self-start text-xl mb-4"
+          onClick={toggleCart}
+        >
           <X />
         </button>
         <div className="grow overflow-auto">
@@ -54,7 +59,7 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
                 <span className="flex flex-row">
                   <Image
                     src={item.image}
-                    alt={item.name}
+                    alt={""}
                     width={100}
                     height={100}
                     style={{ objectFit: "cover" }}
@@ -68,6 +73,8 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
                 </span>
 
                 <button
+                  type="button"
+                  aria-label="Remove item from cart"
                   onClick={() => removeFromCart(item.id)}
                   className="hover:text-background"
                 >
