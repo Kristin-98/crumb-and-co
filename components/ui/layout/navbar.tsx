@@ -26,7 +26,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="justify-between items-center flex p-3 text-foreground bg-background sticky top-0 left-0 right-0 mx-3 md:mx-8 z-10">
+      <header className="justify-between items-center flex p-3 text-foreground bg-background sticky top-0 left-0 right-0 px-3 md:px-8 z-10">
         {!isOpen && (
           <button onClick={toggleNav} className="md:hidden">
             <Menu />
@@ -59,7 +59,7 @@ export function Navbar() {
             <ShoppingCart />
             {totalItems > 0 && (
               <span
-                className="absolute top-7 right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                className="absolute top-7 right-1 md:right-5 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
                 aria-label={`${totalItems} items in cart`}
               >
                 {totalItems}
@@ -96,7 +96,7 @@ export function Navbar() {
           My Orders
         </Link>
         {user && (
-          <div className="mt-auto pt-6 border-t flex justify-center">
+          <div className="mt-auto pt-6 border-t border-accent flex justify-center">
             <LogoutButton />
           </div>
         )}

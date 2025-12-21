@@ -47,22 +47,31 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
             <p>Your cart is empty.</p>
           ) : (
             cart.items.map((item) => (
-              <div key={item.id} className="flex justify-between mb-4">
-                <span>
-                  <p>{item.name}</p>
+              <div
+                key={item.id}
+                className="flex justify-between mb-4 items-center border-b border-accent pb-3"
+              >
+                <span className="flex flex-row">
                   <Image
                     src={item.image}
                     alt={item.name}
                     width={100}
                     height={100}
                     style={{ objectFit: "cover" }}
+                    className="rounded"
                   />
-                  <p>{item.price} kr</p>
-                  <p>{item.quantity} pcs</p>
+                  <span className="ml-3 text-xs md:text-lg">
+                    <p className="my-2 font-medium">{item.name}</p>
+                    <p>{item.price} kr</p>
+                    <p>{item.quantity} pcs</p>
+                  </span>
                 </span>
 
-                <button onClick={() => removeFromCart(item.id)}>
-                  <Trash2 />
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="hover:text-background"
+                >
+                  <Trash2 size={20} />
                 </button>
               </div>
             ))
@@ -76,11 +85,11 @@ export default function CartSidebar({ isCartOpen, toggleCart }: ICartSideBar) {
 
           <p>{totalPrice.toFixed(2)} kr</p>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-5">
           <Button
             disabled={cart.items.length === 0}
             onClick={handleCheckout}
-            className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-3xl text-lg text-white bg-primary hover:bg-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed group"
           >
             Checkout
             <ChevronRight className="transition-transform duration-300 group-hover:translate-x-3" />

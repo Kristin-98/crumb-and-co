@@ -30,7 +30,7 @@ export default async function ProductPage({ params }: IProductPage) {
   }
 
   return (
-    <div className="p-8 max-w-2xl mx-auto pt-20">
+    <div className="p-8 mx-auto pt-20 flex md:flex-row flex-col justify-center">
       <Image
         src={product.image_url || "/hero.png"}
         alt={product.name}
@@ -38,19 +38,20 @@ export default async function ProductPage({ params }: IProductPage) {
         height={500}
         className="rounded-lg object-cover"
       />
+      <div className="md:ml-10 max-w-3xl">
+        <h2 className="text-3xl font-bold mt-4">{product.name}</h2>
+        <p className="text-lg mt-2">{product.description}</p>
+        <p className="text-xl font-semibold my-4">{product.price} kr</p>
 
-      <h2 className="text-3xl font-bold mt-4">{product.name}</h2>
-      <p className="text-lg mt-2">{product.description}</p>
-      <p className="text-xl font-semibold mt-4">{product.price} kr</p>
-
-      <BuyButton
-        product={{
-          id: product.id.toString(),
-          name: product.name,
-          price: product.price,
-          image: product.image_url,
-        }}
-      />
+        <BuyButton
+          product={{
+            id: product.id.toString(),
+            name: product.name,
+            price: product.price,
+            image: product.image_url,
+          }}
+        />
+      </div>
     </div>
   );
 }

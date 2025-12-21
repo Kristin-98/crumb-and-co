@@ -10,7 +10,9 @@ export default function Home() {
       <Hero />
       <AboutHero />
       <HowItWorks />
-      <ProductCard />
+      <section id="products">
+        <ProductCard />
+      </section>
       <SubscriptionBenefits />
     </main>
   );

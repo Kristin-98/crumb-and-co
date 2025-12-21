@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -17,14 +18,16 @@ export default function Hero() {
           <h1>Where</h1>
           <p>quality meets</p>
           <p className="pb-4">comfort</p>
-
-          <button
-            type="button"
-            className="group bg-primary text-sm md:text-lg text-white font-medium rounded-full py-2 md:px-4 px-2 hover:bg-accent-foreground flex flex-row items-center"
-          >
-            Join our monthly subscription.
-            <ChevronRight className="transition-transform duration-300 group-hover:translate-x-2" />
-          </button>
+          
+          <Link href="#products">
+            <button
+              type="button"
+              className="group bg-primary text-sm md:text-lg text-white font-medium rounded-full py-2 md:px-4 px-2 hover:bg-accent-foreground flex flex-row items-center"
+            >
+              Shop & Subscribe
+              <ChevronRight className="transition-transform duration-300 group-hover:translate-x-2" />
+            </button>
+          </Link>
         </motion.div>
       </div>
     </>

@@ -20,7 +20,7 @@ const containerVariants: Variants = {
 
 export default function SubscriptionBenefits() {
   return (
-    <div className="flex flex-row gap-5 justify-center">
+    <div className="flex flex-row gap-5 justify-center mt-15">
       <motion.div
         variants={containerVariants}
         initial="hidden"
