@@ -12,10 +12,8 @@ export async function createServerSupabaseClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options);
-          });
+         setAll() {
+          throw new Error("Cannot set cookies here outside of Server Actions or Route Handlers");
         },
       },
     }

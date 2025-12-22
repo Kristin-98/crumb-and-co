@@ -12,14 +12,15 @@ interface IOrderRequestBody {
   total: number;
   frequency: string;
   address: {
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     street: string;
     city: string;
     zip: string;
     email: string;
   };
 }
+
 
 export async function POST(req: Request) {
   const supabase = await createServerSupabaseClient();
@@ -59,8 +60,15 @@ export async function POST(req: Request) {
 
   await supabase.from("addresses").insert({
     order_id: order.id,
-    ...address,
+    first_name: address.firstName,
+    last_name: address.lastName,
+    street: address.street,
+    city: address.city,
+    zip: address.zip,
+    email: address.email,
   });
+  console.log("Address data received:", address);
+
 
   return NextResponse.json({ orderId: order.id });
 }
