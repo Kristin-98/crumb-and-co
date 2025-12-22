@@ -147,6 +147,7 @@ export function AddressFieldset() {
           try {
             const res = await fetch("/api/orders", {
               method: "POST",
+              credentials: "include",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 items: cart.items,
