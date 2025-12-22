@@ -29,9 +29,9 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center justify-center space-y-2 text-center text-sm">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary/70">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-secondary/70">
               Visit Us
-            </h3>
+            </h2>
             <p>123 Main St</p>
             <p>New York, NY 90502</p>
             <p className="text-secondary/70">Open daily · 7am – 6pm</p>
