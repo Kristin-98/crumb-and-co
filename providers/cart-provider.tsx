@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useReducer,
+  useState,
 } from "react";
 
 export interface ICartItem {
@@ -32,12 +33,16 @@ export interface ICartContextValue {
 const CartContext = createContext<ICartContextValue | null>(null);
 
 export type CartAction =
+  | { type: "HYDRATE"; payload: ICartState }
   | { type: "ADD_ITEM"; payload: ProductInput }
   | { type: "REMOVE_ITEM"; payload: string }
   | { type: "CLEAR_CART" };
 
 function cartReducer(state: ICartState, action: CartAction): ICartState {
   switch (action.type) {
+    case "HYDRATE":
+      return action.payload;
+
     case "ADD_ITEM": {
       const item = action.payload;
       const existing = state.items.find((i) => i.id === item.id);
@@ -73,37 +78,27 @@ function cartReducer(state: ICartState, action: CartAction): ICartState {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-
-    if (storedCart) {
-      try {
-        const parsed = JSON.parse(storedCart);
-        dispatch({ type: "CLEAR_CART" });
-
-        parsed.items.forEach((item: ICartItem) => {
-          for (let i = 0; i < item.quantity; i++) {
-            dispatch({
-              type: "ADD_ITEM",
-              payload: {
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                image: item.image,
-              },
-            });
-          }
-        });
-      } catch (e) {
-        console.error("Failed to load cart from localStorage", e);
+    try {
+      const storedCart = localStorage.getItem("cart");
+      if (storedCart) {
+        const parsed: ICartState = JSON.parse(storedCart);
+        dispatch({ type: "HYDRATE", payload: parsed });
       }
+    } catch (error) {
+      console.error("Failed to hydrate cart:", error);
+    } finally {
+      setHydrated(true);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(state));
-  }, [state]);
+    if (hydrated) {
+      localStorage.setItem("cart", JSON.stringify(state));
+    }
+  }, [state, hydrated]);
 
   const addToCart = (item: ProductInput) =>
     dispatch({ type: "ADD_ITEM", payload: item });
@@ -115,7 +110,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ cart: state, addToCart, removeFromCart, clearCart }}
+      value={{
+        cart: state,
+        addToCart,
+        removeFromCart,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
@@ -124,6 +124,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
 export function useCart() {
   const context = useContext(CartContext);
-  if (!context) throw new Error("useCart must be used inside CartProvider");
+  if (!context) {
+    throw new Error("useCart must be used inside CartProvider");
+  }
   return context;
 }
