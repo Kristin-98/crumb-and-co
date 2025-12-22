@@ -1,10 +1,4 @@
-import dynamic from "next/dynamic";
-
-const LoginButton = dynamic(
-  () =>
-    import("@/components/ui/auth/login-button").then((mod) => mod.LoginButton),
-  { ssr: false }
-);
+import LoginClient from "./login-client";
 
 export default function LoginPage() {
   return (
@@ -17,7 +11,7 @@ export default function LoginPage() {
           order.
         </p>
 
-        <LoginButton />
+        <LoginClient />
 
         <p className="text-sm text-muted-foreground">
           We’ll bring you back to checkout after signing in.
