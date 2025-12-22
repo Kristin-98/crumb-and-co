@@ -1,7 +1,10 @@
-import { LoginButton } from "@/components/ui/auth/login-button";
-import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
-export const dynamic = "force-dynamic";
+const LoginButton = dynamic(
+  () =>
+    import("@/components/ui/auth/login-button").then((mod) => mod.LoginButton),
+  { ssr: false }
+);
 
 export default function LoginPage() {
   return (
@@ -14,9 +17,7 @@ export default function LoginPage() {
           order.
         </p>
 
-        <Suspense fallback={<div>Loading…</div>}>
-          <LoginButton />
-        </Suspense>
+        <LoginButton />
 
         <p className="text-sm text-muted-foreground">
           We’ll bring you back to checkout after signing in.
