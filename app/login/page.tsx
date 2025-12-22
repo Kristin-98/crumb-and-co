@@ -1,4 +1,5 @@
 import { LoginButton } from "@/components/ui/auth/login-button";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
@@ -11,7 +12,9 @@ export default function LoginPage() {
           order.
         </p>
 
-        <LoginButton />
+        <Suspense fallback={<div>Loading…</div>}>
+          <LoginButton />
+        </Suspense>
 
         <p className="text-sm text-muted-foreground">
           We’ll bring you back to checkout after signing in.
