@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export async function createServerSupabaseClient() {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,8 +12,16 @@ export async function createServerSupabaseClient() {
         getAll() {
           return cookieStore.getAll();
         },
-         setAll() {
-          throw new Error("Cannot set cookies here outside of Server Actions or Route Handlers");
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set({
+              name,
+              value,
+              ...options,
+              sameSite: "none",
+              secure: true,
+            });
+          });
         },
       },
     }
