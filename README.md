@@ -1,7 +1,7 @@
 # Crumb & Co  
 ### A Bakery Subscription Application
 
-![Crumb & Co – Homepage](./public/images/homepage.png)
+![Crumb & Co – Homepage](./public/readme.png)
 
 Crumb & Co is a web-based bakery subscription application where users can subscribe to recurring deliveries of curated bakery boxes. The project was developed as a final degree project with a focus on user experience, accessibility, and modern full-stack web development.
 
