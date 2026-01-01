@@ -39,6 +39,50 @@ npm run dev
 http://localhost:3000
 
 
+## Technical Decisions
+
+- React & Next.js
+  Chosen for its component-based architecture, built-in routing and server-side rendering, which improves performance and SEO.
+
+- Supabase
+  Used as a backend-as-a-service to simplify database management, authentication and OAuth integration in a single platform.
+
+- Shadcn/ui 
+  Provides accessible and customizable UI components while allowing full control over styling.
+
+- Vercel 
+  Selected for seamless deployment and native support for Next.js applications.
+
+
+  ## Core Features & Implementation
+
+- Authentication 
+  Google OAuth is implemented via Supabase Auth. Users authenticate securely without passwords, and sessions are handled using cookies.
+
+- Subscriptions & Orders  
+  Users can subscribe to curated bakery boxes. Subscription and order data is stored in a PostgreSQL database and linked to authenticated users.
+
+- Form Validation 
+  Zod is used to validate form input before submission to ensure correct and secure data handling.
+
+- State Management 
+  Global state is managed using React Context to handle cart and subscription data across the application.
+
+
+## UX, UI & Accessibility
+
+The application is designed with a clear user flow and minimal friction.  
+Accessibility has been a core focus, following WCAG 2.1 level A and AA:
+
+- High contrast between text and background
+- Semantic HTML elements
+- Keyboard navigation support
+- Responsive layout for mobile and desktop
+
+Accessibility has been tested using Lighthouse and WebAIM WAVE.
+
+
+
 Checklista – Betygskriterier
 Godkänt (G)
 
